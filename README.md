@@ -1,3 +1,9 @@
+从今天开始尝试用 Windows7 + Visual Studio Code + node.js + Github 搭建的开发环境来逐步实现树叶笔记法的功能。
+
+# 第一版，自动识别标签词
+
+此插件将根据设置面板中关键词信息来对笔记内容进行识别，然后在侧边栏中推荐相应的标签词，用户可轻松勾选并统一上屏。
+
 # Obsidian Sample Plugin
 
 This is a sample plugin for Obsidian (https://obsidian.md).
