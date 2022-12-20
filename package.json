@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "obsidian-tree-leaf",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "树叶笔记法配套插件，功能1:自动识别笔记内容中的标签词,用户勾选上屏.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

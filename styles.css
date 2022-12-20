@@ -1,8 +1,40 @@
-/*
+.comment-panel{
+    overflow-y: hidden;
+    overflow-x: hidden;
+;
+}
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+.comment-pannel-bubble{
+  white-space: wrap;
+  height:auto;
+  width:95%;
 
-If your plugin does not need CSS, delete this file.
+  overflow-y: hidden;
+  overflow-x: hidden;
+  line-height: 100%;
+  text-overflow: ellipsis;
+  -webkit-transition: height 1s;
+  transition: opacity 1s, line-height 0.1s;
+  padding: 0px 0px;
+  background-color: var(--background-secondary);
+  color: var(--text-normal);
+  border: none;
+  text-decoration: none; 
+  /* display: inline-block; */
+  margin: 0px 0px; 
+  cursor: pointer; 
+  border-radius: 14px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
-*/
+.comment-pannel-p1 {
+  width: 100%;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  margin-bottom: 10px;
+  color: var(--text-a);
+  cursor: pointer; 
+}
+
