@@ -1,4 +1,4 @@
-从今天开始尝试用 Windows7 + Visual Studio Code + node.js + Github 搭建的开发环境来开发树叶插件，逐步实现树叶笔记法的功能。
+从今天开始尝试用 Windows7 + Visual Studio Code + node.js + Github 搭建的开发环境来开发树叶助理插件，逐步实现树叶笔记法的功能。
 
 ## 1.0.0 功能更新：自动识别标签词
 
