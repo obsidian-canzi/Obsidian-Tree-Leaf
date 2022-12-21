@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, CachedMetadata, View,  Modal, Notice,getAllTags, Plugin, PluginSettingTab, Setting, ItemView, WorkspaceLeaf ,TFile} from 'obsidian';
+import { App, Editor, MarkdownView, CachedMetadata, View,  Modal, Notice,getAllTags,getLinkpath, Plugin, PluginSettingTab, Setting, ItemView, WorkspaceLeaf ,TFile} from 'obsidian';
 import * as CodeMirror from 'codemirror';
 
 // Remember to rename these classes and interfaces!
@@ -86,37 +86,43 @@ export default class TreeLeafPlugin extends Plugin {
 			}
 		});
 
-		/*这里添加一个复杂的命令，该命令可以检查应用程序的当前状态是否允许执行命令
-		this.addCommand({
-			id: 'open-sample-modal-complex',
-			name: '打开面板',
-			checkCallback: (checking: boolean) => {
-				// 条件检查，指定一条布尔值
-				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					// 如果结果为真，我们只是在“检查”该命令是否可以运行。
-					// 如果结果为假，则希望实际执行该操作。
-					if (!checking) {
-						new SampleModal(this.app).open();
-					}
+        this.addCommand({
+			id: 'onpen-canvaFile',
+			name: '平铺查看内链笔记',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+                let linkData:string = "";
+                let newFile:any = this.app.vault.getAbstractFileByPath("000000.canvas");
+                let links = (this.app as any).metadataCache.getFileCache(thisFile).links;
+                if (!links) {
+                    return
+                }
+                for(var i=0;i<links.length;i++){
+                    let eachLink = links[i];
+                    if (eachLink.displayText != "" && eachLink.link != eachLink.displayText) {
+                        continue;
+                    }
+                    let afile:TFile = (this.app as any).metadataCache.getFirstLinkpathDest(getLinkpath(eachLink.link), thisFile.path);
+                    let xx:Number = Math.trunc(i/4)*480+(i%4+1)*20;
+                    let yy:Number = i%4*120;
+                    let tmpData:string='\t\t{"id":"'+Number(20220001+i)+'","x":'+xx+',"y":'+yy+',"width":'+400+',"height":'+400+',"type":"file","file":"'+afile.path+'"},\n';
+                    linkData += tmpData;
+                }
+                //console.log(linkData);
 
-					// 仅当Check函数返回True时，此命令才会显示在命令组件面板中
-					return true;
-				}
+                let DataStart:string = '{\n\t"nodes":[\n\t\t';
+                let thisData:string='{"id":"'+20230000+'","x":-'+500+',"y":'+0+',"width":'+500+',"height":'+760+',"type":"file","file":"'+thisFile.path+'"}';
+                let DataEnd:string='\n\t],\n\t"edges":[]\n}';;
+                let canvaData:string=DataStart+linkData+thisData+DataEnd;
+                console.log(canvaData);
+                (this.app as any).vault.modify(newFile,canvaData);
+                (this.app as any).workspace.getLeaf().openFile(newFile);
 			}
-		});*/
+		});
+
 
 		// 这将添加设置选项卡，以便用户对插件进行各个方面配置。
 		this.addSettingTab(new SampleSettingTab(this.app, this));
 
-		// 如果插件执行了任何全局 DOM 事件(在不属于此插件的应用程序部分)
-		// 当禁用此插件时，使用此函数将自动删除事件侦听器。
-		/*this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
-		});*/
-
-		// 当注册时间间隔时，此功能将在禁用插件时自动清除该时间间隔。
-		//this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
 
 	showPanel = function () {
@@ -144,9 +150,14 @@ export default class TreeLeafPlugin extends Plugin {
 		upTagList = [];
 		addTagList = [];
 		editor = this.getEditor();
-		thisLines = this.getLines(editor);
-		thisTagList = this.getThisTagList(file);
-		upTagList = this.getUpTagList(thisLines);
+        if(editor == null){
+            return;
+        }else{
+            thisLines = this.getLines(editor);
+		    thisTagList = this.getThisTagList(file);
+		    upTagList = this.getUpTagList(thisLines);
+        }
+		
 	}
 
 	//获取推荐标签列表
@@ -164,7 +175,7 @@ export default class TreeLeafPlugin extends Plugin {
 				tag = String("#"+tag0[0]);
 			 }
 			 //识别词表中的首位 标签词，将加前缀#
-            var reg0:RegExp = eval("/("+wordKey+")/");
+            var reg0:RegExp = new RegExp("("+wordKey+")","i");
             //console.log(wordKey+" "+tag0+" "+reg0);
             if(reg0.test(lines) && !upTagList.includes(tag) && !thisTagList.includes(tag)){
                 ary0.push(tag);
@@ -176,7 +187,7 @@ export default class TreeLeafPlugin extends Plugin {
 
 	//获取当前标签列表
     getThisTagList(file:TFile):any {
-		var fileCache = this.app.metadataCache.getFileCache(file);
+		var fileCache = (this.app as any).metadataCache.getFileCache(file);
 		if(fileCache){
 			var array:any = getAllTags(fileCache);
 			if(array == null){
@@ -190,16 +201,29 @@ export default class TreeLeafPlugin extends Plugin {
     };
 
 	/** 以下为基础功能函数 */
-	getEditor(): CodeMirror.Editor {
-        let view:any = this.app.workspace.getActiveViewOfType(MarkdownView);
-		//if (!view) return;
+	/*getEditor(): CodeMirror.Editor {
+        let view:View = (this.app as any).workspace.getActiveViewOfType(MarkdownView);
+		if (view==null){return};
 
-		let cm = view.sourceMode.cmEditor;
-		return cm;
-    };
+		let cmEditor = view.sourceMode.cmEditor;
+		return cmEditor;
+    };*/
+    getEditor = (): Editor | null => {
+		let editor = null;
+		let markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
+		if (markdownView) {
+			editor = markdownView.editor;
+		}
+		if (editor === null) console.log('can\'t get editor');
+		return editor;
+	}
 
-	getLines(editor:CodeMirror.Editor):string {
-		return  editor.getValue();
+	getLines(editor:Editor):string {
+        if (editor === null){
+            return "";
+        }else{
+            return editor.getValue();
+        }
     };
 
 	//去重算法
@@ -256,6 +280,10 @@ class SampleSettingTab extends PluginSettingTab {
         new Setting(containerEl)
 			.setName('筛选笔记(Filter Notes)')
 			.setDesc('执行【按文件名/标签词筛选】命令，会在笔记中添加 DataViewJS 代码，并根据文件名称或内含标签组进行全库筛选。')
+
+        new Setting(containerEl)
+			.setName('总览内链笔记(Tile to view inner chain notes)')
+			.setDesc('启用 Canvas 插件后执行【平铺查看内链笔记】命令，会在 000000.canvas 白板文件中平铺展示当前笔记的所有内链笔记。')
 
 		new Setting(containerEl)
 			.setName('关键词表(Keyword table)')
@@ -405,7 +433,13 @@ export class TreeLeafView extends ItemView {
         let view:any = this.app.workspace.getActiveViewOfType(MarkdownView);
         if (!view){return};
         let editor:any = view.sourceMode.cmEditor;
-        let lines:string = editor.getValue();
+        let lines:string ="";
+        if (editor === null){
+            return;
+        }else{
+            lines = editor.getValue();
+        }
+
         if(!/\s*tags:+\s+\[*/i.test(lines)){
             editor.setCursor(0, 0);
             if(/^\s*#/.test(lines)){

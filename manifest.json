@@ -1,10 +1,10 @@
 {
 	"id": "obsidian-tree-leaf",
 	"name": "树叶插件",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"minAppVersion": "0.15.0",
 	"description": "此插件魔改自Obsidian-Comments插件，配合树叶笔记法实现【落叶寻枝】【循枝生叶】功能：自动识别笔记内容中的标签词,用户勾选上屏。",
-	"author": "Obsidian",
+	"author": "obsidian-canzi",
 	"authorUrl": "https://github.com/obsidian-canzi",
 	"fundingUrl": "https://github.com/obsidian-canzi/Obsidian-Tree-Leaf",
 	"isDesktopOnly": false
