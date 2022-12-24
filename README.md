@@ -30,6 +30,11 @@ https://user-images.githubusercontent.com/16410542/208896442-7030f45c-b55c-432f-
 ## 1.4.0 功能更新：多标签（且关系）筛选全库笔记
 
 点击【标签筛选】按钮，可复选多个标签对全库笔记进行且关系筛选。
+
+https://user-images.githubusercontent.com/16410542/209418653-e1d3032a-9bad-481e-946f-132669177f4a.mp4
+
+
+
 ## 功能待续...
  
 - 实现返回枝级导航页面功能
