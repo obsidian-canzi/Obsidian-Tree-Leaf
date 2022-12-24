@@ -55,3 +55,22 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.comment-pannel-p3 {
+  height:auto;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  line-height: 100%;
+  text-overflow: ellipsis;
+  transition: opacity 1s, line-height 0.1s;
+  padding: 0px 0px;
+  border: none;
+  text-decoration: none; 
+  display: inline-block;
+  margin: 0px 0px; 
+  /* cursor: pointer;  */
+  border-radius: 14px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
