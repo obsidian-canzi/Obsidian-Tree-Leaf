@@ -1,5 +1,11 @@
 从今天开始尝试用 Windows7 + Visual Studio Code + node.js + Github 搭建的开发环境来开发树叶助理插件，逐步实现树叶笔记法的功能。
 
+#### 操作演示
+[观看视频](https://www.bilibili.com/video/BV1ke4y1L7F5)
+
+#### 示例库文件 
+[下载文件包](https://share.weiyun.com/GKNWTWRv)
+
 ## 1.0.0 功能更新：自动识别标签词
 
 此插件将根据设置面板中关键词信息来对笔记内容进行识别，然后在侧边栏中推荐相应的标签词，用户可轻松勾选，点击【推荐标签】按钮即可上屏。
