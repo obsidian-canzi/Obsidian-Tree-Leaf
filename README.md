@@ -6,8 +6,7 @@
 #### 示例库文件 
 [下载文件包](https://share.weiyun.com/GKNWTWRv)
 
-#### 示例库分享
-
+***
 为方便大家了解树叶笔记法及助理插件的用法，特整理示例库文件包，希望认真阅读《树叶助理插件基本用法》文档。
 
 ![助理基本用法 1 5 0](https://user-images.githubusercontent.com/16410542/209439999-4490b2b9-43a3-4f29-8f7a-c67f276537cc.png)
