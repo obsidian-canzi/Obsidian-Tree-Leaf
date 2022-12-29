@@ -1,4 +1,3 @@
-从今天开始尝试用 Windows7 + Visual Studio Code + node.js + Github 搭建的开发环境来开发树叶助理插件，逐步实现树叶笔记法的功能。
 
 #### 操作演示
 [观看视频](https://www.bilibili.com/video/BV1ke4y1L7F5)
