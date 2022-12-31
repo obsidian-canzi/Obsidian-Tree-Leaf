@@ -3,7 +3,7 @@
 [观看视频](https://www.bilibili.com/video/BV1ke4y1L7F5)
 
 #### 示例库文件 
-[下载文件包](https://share.weiyun.com/GKNWTWRv)
+[下载文件包](https://github.com/obsidian-canzi/Obsidian-Tree-Leaf/releases/download/1.6.0/treeleaf-vault-1.6.0.rar)
 
 ***
 朋友，你好。欢迎测试树叶笔记法示例库！
